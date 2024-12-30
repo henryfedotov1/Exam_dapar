@@ -48,51 +48,60 @@
         .hidden {
             display: none;
         }
+        #timer {
+            font-size: 18px;
+            margin-top: 10px;
+            color: #FF0000;
+        }
+        .score {
+            font-size: 22px;
+            color: #4CAF50;
+            font-weight: bold;
+        }
     </style>
 </head>
 <body>
     <div class="container">
         <div id="question-container">
-            <p id="question" class="question">שאלה 1: מה פירוש המילה "תבונה"?</p>
-            <ul id="options" class="options">
-                <li><button onclick="nextQuestion(1)">חוכמה</button></li>
-                <li><button onclick="nextQuestion(2)">טיפשות</button></li>
-                <li><button onclick="nextQuestion(3)">אומץ</button></li>
-                <li><button onclick="nextQuestion(4)">יצירתיות</button></li>
-            </ul>
+            <p id="question" class="question"></p>
+            <ul id="options" class="options"></ul>
+            <p id="timer">זמן שנותר: 10 שניות</p>
         </div>
-        <p id="completion-message" class="hidden">סיימת את כל השאלות! בהצלחה!</p>
+        <div id="completion-container" class="hidden">
+            <p>סיימת את כל השאלות!</p>
+            <p class="score" id="score"></p>
+        </div>
     </div>
 
     <script>
         const questions = [
-            {
-                question: "שאלה 1: מה פירוש המילה 'תבונה'?",
-                options: ["חוכמה", "טיפשות", "אומץ", "יצירתיות"]
-            },
-            {
-                question: "שאלה 2: מהו ההפך מהמילה 'גדול'?",
-                options: ["קטן", "שמח", "ישן", "חזק"]
-            },
-            {
-                question: "שאלה 3: מהי מילה נרדפת ל'חזק'?",
-                options: ["עוצמתי", "חלש", "יפה", "עמוק"]
-            },
-            {
-                question: "שאלה 4: מה פירוש המילה 'נדיר'?",
-                options: ["מיוחד", "רגיל", "חכם", "חם"]
-            },
-            {
-                question: "שאלה 5: מהו ההפך מהמילה 'ישן'?",
-                options: ["חדש", "ישן", "נדיר", "משעמם"]
-            }
+            { question: "מה פירוש המילה 'תבונה'?", options: ["חוכמה", "טיפשות", "אומץ", "יצירתיות"], correct: 0 },
+            { question: "מהו ההפך מהמילה 'גדול'?", options: ["קטן", "שמח", "ישן", "חזק"], correct: 0 },
+            { question: "מהי מילה נרדפת ל'חזק'?", options: ["עוצמתי", "חלש", "יפה", "עמוק"], correct: 0 },
+            { question: "מה פירוש המילה 'נדיר'?", options: ["מיוחד", "רגיל", "חכם", "חם"], correct: 0 },
+            { question: "מהו ההפך מהמילה 'ישן'?", options: ["חדש", "ישן", "נדיר", "משעמם"], correct: 0 },
+            { question: "מהי מילה נרדפת ל'יפה'?", options: ["מהמם", "חלש", "רגיל", "עמוק"], correct: 0 },
+            { question: "מה פירוש המילה 'אומץ'?", options: ["גבורה", "פחד", "חולשה", "חוכמה"], correct: 0 },
+            { question: "מהו ההפך מהמילה 'עמוק'?", options: ["רדוד", "גבוה", "ישן", "שטוח"], correct: 0 },
+            { question: "מהי מילה נרדפת ל'מהיר'?", options: ["זריז", "חזק", "רגוע", "עמוק"], correct: 0 },
+            { question: "מהו ההפך מהמילה 'שמח'?", options: ["עצוב", "כועס", "חכם", "ישן"], correct: 0 },
+            { question: "מהי מילה נרדפת ל'משעמם'?", options: ["יבש", "כועס", "רגוע", "ישן"], correct: 0 },
+            { question: "מהו ההפך מהמילה 'קל'?", options: ["קשה", "עמוס", "נדיר", "חזק"], correct: 0 },
+            { question: "מה פירוש המילה 'אדיר'?", options: ["עצום", "קטן", "חזק", "עמוק"], correct: 0 },
+            { question: "מהי מילה נרדפת ל'נבון'?", options: ["חכם", "פשוט", "רגיל", "עמוק"], correct: 0 },
+            { question: "מהו ההפך מהמילה 'קטן'?", options: ["גדול", "ישן", "רגוע", "חדש"], correct: 0 },
+            { question: "מהי מילה נרדפת ל'רגוע'?", options: ["שליו", "חכם", "נדיר", "כועס"], correct: 0 },
+            { question: "מהו ההפך מהמילה 'חם'?", options: ["קר", "חכם", "רגיל", "עמוק"], correct: 0 },
+            { question: "מהי מילה נרדפת ל'חסר פחד'?", options: ["אמיץ", "עצבני", "חלש", "עמוק"], correct: 0 },
+            { question: "מה פירוש המילה 'שלווה'?", options: ["רוגע", "כעס", "פחד", "חולשה"], correct: 0 },
+            { question: "מהו ההפך מהמילה 'צפוף'?", options: ["מרווח", "חכם", "נדיר", "עמוק"], correct: 0 }
         ];
 
         let currentQuestionIndex = 0;
+        let score = 0;
+        let timer;
 
-        function nextQuestion(answerIndex) {
-            currentQuestionIndex++;
-
+        function loadQuestion() {
             if (currentQuestionIndex < questions.length) {
                 const currentQuestion = questions[currentQuestionIndex];
                 document.getElementById("question").innerText = currentQuestion.question;
@@ -103,16 +112,52 @@
                 currentQuestion.options.forEach((option, index) => {
                     const button = document.createElement("button");
                     button.innerText = option;
-                    button.onclick = () => nextQuestion(index + 1);
+                    button.onclick = () => handleAnswer(index);
                     const listItem = document.createElement("li");
                     listItem.appendChild(button);
                     optionsList.appendChild(listItem);
                 });
+
+                startTimer();
             } else {
-                document.getElementById("question-container").classList.add("hidden");
-                document.getElementById("completion-message").classList.remove("hidden");
+                endQuiz();
             }
         }
+
+        function handleAnswer(selectedIndex) {
+            clearInterval(timer);
+            const currentQuestion = questions[currentQuestionIndex];
+            if (selectedIndex === currentQuestion.correct) {
+                score++;
+            }
+            currentQuestionIndex++;
+            loadQuestion();
+        }
+
+        function startTimer() {
+            let timeLeft = 10;
+            document.getElementById("timer").innerText = `זמן שנותר: ${timeLeft} שניות`;
+
+            timer = setInterval(() => {
+                timeLeft--;
+                if (timeLeft <= 0) {
+                    clearInterval(timer);
+                    currentQuestionIndex++;
+                    loadQuestion();
+                } else {
+                    document.getElementById("timer").innerText = `זמן שנותר: ${timeLeft} שניות`;
+                }
+            }, 1000);
+        }
+
+        function endQuiz() {
+            document.getElementById("question-container").classList.add("hidden");
+            document.getElementById("completion-container").classList.remove("hidden");
+            document.getElementById("score").innerText = `קיבלת ${score} מתוך ${questions.length} שאלות נכונות!`;
+        }
+
+        // Start the quiz
+        loadQuestion();
     </script>
 </body>
 </html>
