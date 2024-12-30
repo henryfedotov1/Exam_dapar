@@ -1,0 +1,36 @@
+header {
+    text-align: center;
+    background: #444;
+    color: #fff;
+    padding: 20px 0;
+    margin-bottom: 20px;
+}
+
+main {
+    max-width: 800px;
+    margin: 20px auto;
+    padding: 20px;
+    background: #fff;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    direction: rtl; /* מגדיר כיוון ימין לשמאל */
+}
+
+section {
+    margin-bottom: 30px;
+}
+
+h2 {
+    color: royalblue;
+    margin-bottom: 10px;
+}
+
+ul {
+    list-style: square;
+    padding-right: 20px; /* מגדיר את הרשימה לימין */
+}
+
+.start-quiz {
+    text-align: center;
+    margin-top: 30px;
+}
