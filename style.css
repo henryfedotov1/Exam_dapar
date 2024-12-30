@@ -34,3 +34,29 @@ ul {
     text-align: center;
     margin-top: 30px;
 }
+
+.start-quiz .btn {
+    background-color: #4CAF50; /* Professional green color */
+    color: white;
+    padding: 12px 24px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    border-radius: 8px; /* Rounded corners */
+    border: none;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Subtle shadow */
+    transition: background-color 0.3s ease, transform 0.3s ease; /* Smooth transitions */
+}
+
+/* Hover Effect */
+.start-quiz .btn:hover {
+    background-color: #45a049; /* Slightly darker green on hover */
+    transform: translateY(-2px); /* Lift effect */
+}
+
+/* Focused button for accessibility */
+.start-quiz .btn:focus {
+    outline: none;
+    box-shadow: 0 0 0 4px rgba(76, 175, 80, 0.5); /* Glow effect */
+}
