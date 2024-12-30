@@ -32,7 +32,7 @@
         .options li {
             margin: 10px 0;
         }
-        button {
+        button, a {
             padding: 10px 20px;
             font-size: 16px;
             border: none;
@@ -40,9 +40,12 @@
             color: white;
             border-radius: 5px;
             cursor: pointer;
+            text-decoration: none;
             width: 100%;
+            display: block;
+            margin-top: 15px;
         }
-        button:hover {
+        button:hover, a:hover {
             background-color: #45a049;
         }
         .hidden {
@@ -65,12 +68,12 @@
         <div id="question-container">
             <p id="question" class="question"></p>
             <ul id="options" class="options"></ul>
-            <p id="timer">זמן שנותר: 10 שניות</p>
+            <p id="timer">זמן שנותר: 5 שניות</p>
         </div>
         <div id="completion-container" class="hidden">
             <p>סיימת את כל השאלות!</p>
             <p class="score" id="score"></p>
-            <button onclick="restartQuiz()">התחל מבחן חדש</button>
+            <a href="quiz.html">עבור למבחן הבא</a>
         </div>
     </div>
 
@@ -81,7 +84,26 @@
             { question: "מהי מילה נרדפת ל'חזק'?", options: ["עוצמתי", "חלש", "יפה", "עמוק"], correct: 0 },
             { question: "מה פירוש המילה 'נדיר'?", options: ["מיוחד", "רגיל", "חכם", "חם"], correct: 0 },
             { question: "מהו ההפך מהמילה 'ישן'?", options: ["חדש", "ישן", "נדיר", "משעמם"], correct: 0 },
-            // הוסף עוד שאלות כאן לפי הצורך
+            { question: "מה פירוש המילה 'עליז'?", options: ["שמח", "עצוב", "חזק", "פשוט"], correct: 0 },
+            { question: "מהו ההפך מהמילה 'טוב'?", options: ["רע", "חכם", "עמוק", "נדיב"], correct: 0 },
+            { question: "מהי מילה נרדפת ל'מהיר'?", options: ["זריז", "איטי", "יפה", "חזק"], correct: 0 },
+            { question: "מה פירוש המילה 'עצלן'?", options: ["לא פעיל", "חרוץ", "חזק", "נדיב"], correct: 0 },
+            { question: "מהו ההפך מהמילה 'כבד'?", options: ["קל", "חזק", "גדול", "חדש"], correct: 0 },
+            { question: "מהי מילה נרדפת ל'יפה'?", options: ["נאה", "מכוער", "רע", "עמוק"], correct: 0 },
+            { question: "מה פירוש המילה 'מסוכן'?", options: ["חסר בטיחות", "חזק", "טוב", "עמוק"], correct: 0 },
+            { question: "מהו ההפך מהמילה 'עמוק'?", options: ["רדוד", "גדול", "נאה", "חזק"], correct: 0 },
+            { question: "מה פירוש המילה 'מרגש'?", options: ["מעורר רגש", "משעמם", "יפה", "עמוק"], correct: 0 },
+            { question: "מהו ההפך מהמילה 'אמיץ'?", options: ["פחדן", "עצלן", "זריז", "טוב"], correct: 0 },
+            { question: "מהי מילה נרדפת ל'חדש'?", options: ["טרי", "ישן", "רע", "עמוק"], correct: 0 },
+            { question: "מה פירוש המילה 'רחוק'?", options: ["לא קרוב", "קרוב", "יפה", "רע"], correct: 0 },
+            { question: "מהו ההפך מהמילה 'יקר'?", options: ["זול", "חזק", "עצלן", "נאה"], correct: 0 },
+            { question: "מהי מילה נרדפת ל'מעניין'?", options: ["מסקרן", "משעמם", "רע", "עמוק"], correct: 0 },
+            { question: "מה פירוש המילה 'חברותי'?", options: ["אוהב חברה", "ביישן", "חדש", "רע"], correct: 0 },
+            { question: "מהו ההפך מהמילה 'מהיר'?", options: ["איטי", "זריז", "חזק", "חדש"], correct: 0 },
+            { question: "מהי מילה נרדפת ל'גבוה'?", options: ["רם", "נמוך", "עמוק", "כבד"], correct: 0 },
+            { question: "מה פירוש המילה 'בטוח'?", options: ["לא מסוכן", "חזק", "עמוק", "יפה"], correct: 0 },
+            { question: "מהו ההפך מהמילה 'רגוע'?", options: ["לחוץ", "חזק", "נאה", "חדש"], correct: 0 },
+            { question: "מהי מילה נרדפת ל'מאושר'?", options: ["שמח", "עצבני", "רע", "עמוק"], correct: 0 }
         ];
 
         let currentQuestionIndex = 0;
@@ -135,7 +157,7 @@
         }
 
         function startTimer() {
-            let timeLeft = 10;
+            let timeLeft = 5;
             document.getElementById("timer").innerText = `זמן שנותר: ${timeLeft} שניות`;
 
             timer = setInterval(() => {
@@ -154,14 +176,6 @@
             document.getElementById("question-container").classList.add("hidden");
             document.getElementById("completion-container").classList.remove("hidden");
             document.getElementById("score").innerText = `קיבלת ${score} מתוך ${questions.length} שאלות נכונות!`;
-        }
-
-        function restartQuiz() {
-            currentQuestionIndex = 0;
-            score = 0;
-            document.getElementById("completion-container").classList.add("hidden");
-            document.getElementById("question-container").classList.remove("hidden");
-            loadQuestion();
         }
 
         // Start the quiz
