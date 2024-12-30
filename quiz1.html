@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="he">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>מבחנים מילוליים</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            direction: rtl;
+            text-align: center;
+            background-color: #f4f4f9;
+            margin: 0;
+            padding: 0;
+        }
+        .container {
+            margin: 20px auto;
+            padding: 20px;
+            max-width: 600px;
+            background-color: white;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            border-radius: 8px;
+        }
+        .question {
+            font-size: 20px;
+            margin-bottom: 20px;
+        }
+        .options {
+            list-style: none;
+            padding: 0;
+        }
+        .options li {
+            margin: 10px 0;
+        }
+        button {
+            padding: 10px 20px;
+            font-size: 16px;
+            border: none;
+            background-color: #4CAF50;
+            color: white;
+            border-radius: 5px;
+            cursor: pointer;
+            width: 100%;
+        }
+        button:hover {
+            background-color: #45a049;
+        }
+        .hidden {
+            display: none;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div id="question-container">
+            <p id="question" class="question">שאלה 1: מה פירוש המילה "תבונה"?</p>
+            <ul id="options" class="options">
+                <li><button onclick="nextQuestion(1)">חוכמה</button></li>
+                <li><button onclick="nextQuestion(2)">טיפשות</button></li>
+                <li><button onclick="nextQuestion(3)">אומץ</button></li>
+                <li><button onclick="nextQuestion(4)">יצירתיות</button></li>
+            </ul>
+        </div>
+        <p id="completion-message" class="hidden">סיימת את כל השאלות! בהצלחה!</p>
+    </div>
+
+    <script>
+        const questions = [
+            {
+                question: "שאלה 1: מה פירוש המילה 'תבונה'?",
+                options: ["חוכמה", "טיפשות", "אומץ", "יצירתיות"]
+            },
+            {
+                question: "שאלה 2: מהו ההפך מהמילה 'גדול'?",
+                options: ["קטן", "שמח", "ישן", "חזק"]
+            },
+            {
+                question: "שאלה 3: מהי מילה נרדפת ל'חזק'?",
+                options: ["עוצמתי", "חלש", "יפה", "עמוק"]
+            },
+            {
+                question: "שאלה 4: מה פירוש המילה 'נדיר'?",
+                options: ["מיוחד", "רגיל", "חכם", "חם"]
+            },
+            {
+                question: "שאלה 5: מהו ההפך מהמילה 'ישן'?",
+                options: ["חדש", "ישן", "נדיר", "משעמם"]
+            }
+        ];
+
+        let currentQuestionIndex = 0;
+
+        function nextQuestion(answerIndex) {
+            currentQuestionIndex++;
+
+            if (currentQuestionIndex < questions.length) {
+                const currentQuestion = questions[currentQuestionIndex];
+                document.getElementById("question").innerText = currentQuestion.question;
+
+                const optionsList = document.getElementById("options");
+                optionsList.innerHTML = ""; // Clear previous options
+
+                currentQuestion.options.forEach((option, index) => {
+                    const button = document.createElement("button");
+                    button.innerText = option;
+                    button.onclick = () => nextQuestion(index + 1);
+                    const listItem = document.createElement("li");
+                    listItem.appendChild(button);
+                    optionsList.appendChild(listItem);
+                });
+            } else {
+                document.getElementById("question-container").classList.add("hidden");
+                document.getElementById("completion-message").classList.remove("hidden");
+            }
+        }
+    </script>
+</body>
+</html>
