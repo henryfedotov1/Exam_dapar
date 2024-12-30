@@ -70,6 +70,7 @@
         <div id="completion-container" class="hidden">
             <p>סיימת את כל השאלות!</p>
             <p class="score" id="score"></p>
+            <button onclick="restartQuiz()">התחל מבחן חדש</button>
         </div>
     </div>
 
@@ -80,26 +81,19 @@
             { question: "מהי מילה נרדפת ל'חזק'?", options: ["עוצמתי", "חלש", "יפה", "עמוק"], correct: 0 },
             { question: "מה פירוש המילה 'נדיר'?", options: ["מיוחד", "רגיל", "חכם", "חם"], correct: 0 },
             { question: "מהו ההפך מהמילה 'ישן'?", options: ["חדש", "ישן", "נדיר", "משעמם"], correct: 0 },
-            { question: "מהי מילה נרדפת ל'יפה'?", options: ["מהמם", "חלש", "רגיל", "עמוק"], correct: 0 },
-            { question: "מה פירוש המילה 'אומץ'?", options: ["גבורה", "פחד", "חולשה", "חוכמה"], correct: 0 },
-            { question: "מהו ההפך מהמילה 'עמוק'?", options: ["רדוד", "גבוה", "ישן", "שטוח"], correct: 0 },
-            { question: "מהי מילה נרדפת ל'מהיר'?", options: ["זריז", "חזק", "רגוע", "עמוק"], correct: 0 },
-            { question: "מהו ההפך מהמילה 'שמח'?", options: ["עצוב", "כועס", "חכם", "ישן"], correct: 0 },
-            { question: "מהי מילה נרדפת ל'משעמם'?", options: ["יבש", "כועס", "רגוע", "ישן"], correct: 0 },
-            { question: "מהו ההפך מהמילה 'קל'?", options: ["קשה", "עמוס", "נדיר", "חזק"], correct: 0 },
-            { question: "מה פירוש המילה 'אדיר'?", options: ["עצום", "קטן", "חזק", "עמוק"], correct: 0 },
-            { question: "מהי מילה נרדפת ל'נבון'?", options: ["חכם", "פשוט", "רגיל", "עמוק"], correct: 0 },
-            { question: "מהו ההפך מהמילה 'קטן'?", options: ["גדול", "ישן", "רגוע", "חדש"], correct: 0 },
-            { question: "מהי מילה נרדפת ל'רגוע'?", options: ["שליו", "חכם", "נדיר", "כועס"], correct: 0 },
-            { question: "מהו ההפך מהמילה 'חם'?", options: ["קר", "חכם", "רגיל", "עמוק"], correct: 0 },
-            { question: "מהי מילה נרדפת ל'חסר פחד'?", options: ["אמיץ", "עצבני", "חלש", "עמוק"], correct: 0 },
-            { question: "מה פירוש המילה 'שלווה'?", options: ["רוגע", "כעס", "פחד", "חולשה"], correct: 0 },
-            { question: "מהו ההפך מהמילה 'צפוף'?", options: ["מרווח", "חכם", "נדיר", "עמוק"], correct: 0 }
+            // הוסף עוד שאלות כאן לפי הצורך
         ];
 
         let currentQuestionIndex = 0;
         let score = 0;
         let timer;
+
+        function shuffle(array) {
+            for (let i = array.length - 1; i > 0; i--) {
+                const j = Math.floor(Math.random() * (i + 1));
+                [array[i], array[j]] = [array[j], array[i]];
+            }
+        }
 
         function loadQuestion() {
             if (currentQuestionIndex < questions.length) {
@@ -109,10 +103,17 @@
                 const optionsList = document.getElementById("options");
                 optionsList.innerHTML = ""; // Clear previous options
 
-                currentQuestion.options.forEach((option, index) => {
+                // Shuffle the options
+                const shuffledOptions = currentQuestion.options.map((option, index) => ({
+                    text: option,
+                    isCorrect: index === currentQuestion.correct
+                }));
+                shuffle(shuffledOptions);
+
+                shuffledOptions.forEach((option) => {
                     const button = document.createElement("button");
-                    button.innerText = option;
-                    button.onclick = () => handleAnswer(index);
+                    button.innerText = option.text;
+                    button.onclick = () => handleAnswer(option.isCorrect);
                     const listItem = document.createElement("li");
                     listItem.appendChild(button);
                     optionsList.appendChild(listItem);
@@ -124,10 +125,9 @@
             }
         }
 
-        function handleAnswer(selectedIndex) {
+        function handleAnswer(isCorrect) {
             clearInterval(timer);
-            const currentQuestion = questions[currentQuestionIndex];
-            if (selectedIndex === currentQuestion.correct) {
+            if (isCorrect) {
                 score++;
             }
             currentQuestionIndex++;
@@ -154,6 +154,14 @@
             document.getElementById("question-container").classList.add("hidden");
             document.getElementById("completion-container").classList.remove("hidden");
             document.getElementById("score").innerText = `קיבלת ${score} מתוך ${questions.length} שאלות נכונות!`;
+        }
+
+        function restartQuiz() {
+            currentQuestionIndex = 0;
+            score = 0;
+            document.getElementById("completion-container").classList.add("hidden");
+            document.getElementById("question-container").classList.remove("hidden");
+            loadQuestion();
         }
 
         // Start the quiz
