@@ -5,6 +5,88 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>הכנה למבחני דפ"ר</title>
     <link rel="stylesheet" href="style.css"> <!-- חיבור לקובץ CSS -->
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            line-height: 1.6;
+            margin: 0;
+            padding: 0;
+            background-color: #f8f9fa;
+            direction: rtl;
+        }
+
+        header {
+            background: #4CAF50;
+            color: #fff;
+            padding: 1rem 0;
+            text-align: center;
+        }
+
+        main {
+            padding: 1rem;
+        }
+
+        h2, h3 {
+            color: #4CAF50;
+        }
+
+        .accordion {
+            background-color: #4CAF50;
+            color: white;
+            cursor: pointer;
+            padding: 15px;
+            width: 100%;
+            border: none;
+            text-align: right;
+            outline: none;
+            font-size: 18px;
+            border-radius: 5px;
+            transition: background-color 0.3s ease, transform 0.2s ease;
+            margin-bottom: 10px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        .accordion:hover {
+            background-color: #45a049;
+        }
+
+        .accordion:active {
+            transform: scale(0.98);
+        }
+
+        .panel {
+            padding: 0 15px;
+            display: none;
+            background-color: #f1f1f1;
+            overflow: hidden;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            margin-top: -10px;
+            margin-bottom: 10px;
+        }
+
+        .btn {
+            display: inline-block;
+            background-color: #4CAF50;
+            color: white;
+            text-align: center;
+            text-decoration: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            margin: 10px 5px 10px 0;
+            transition: background-color 0.3s ease, transform 0.2s ease;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        .btn:hover {
+            background-color: #45a049;
+            transform: scale(1.05);
+        }
+
+        .btn:active {
+            transform: scale(1);
+        }
+    </style>
 </head>
 <body>
     <header>
@@ -12,54 +94,55 @@
     </header>
     <main>
         <section>
-            <h2>על הכנה למבחני דפ"ר</h2>
-            <p>
-                הכנה למבחני דפ"ר נועדה לעזור לך להתכונן למבחני הדפ"ר שלך, צעד חשוב בתהליך הגיוס לצה"ל. 
-                המבחנים האלו מודדים את היכולות הקוגניטיביות שלך ואת יכולת פתרון הבעיות שלך, ומוודאים שאתה מוכן לאתגרים שלפניך.
-            </p>
-        </section>
+            <h2>בחרו נושא לתרגול:</h2>
 
-        <section>
-            <h2>מה תמצאו כאן</h2>
-            <ul>
-                <li>שאלונים אינטראקטיביים עם שאלות בסגנון מבחני אמת.</li>
-                <li>משוב מיידי על התשובות שלך.</li>
-                <li>טיפים לשיפור הביצועים שלך.</li>
-            </ul>
-        </section>
+            <button class="accordion">אוצר מילים</button>
+            <div class="panel">
+                <a href="quiz_vocabulary1.html" class="btn">מבחן 1</a>
+                <a href="quiz_vocabulary2.html" class="btn">מבחן 2</a>
+                <a href="quiz_vocabulary3.html" class="btn">מבחן 3</a>
+            </div>
 
-        <section>
-            <h2>איך להשתמש באתר</h2>
-            <p>
-                1. התחילו בלחיצה על "התחל מבחן" בדף הבית.<br>
-                2. ענו על השאלות בצורה הטובה ביותר שאתם יכולים.<br>
-                3. בדקו את הציון שלכם וקראו את התשובות הנכונות.<br>
-            </p>
-        </section>
+            <button class="accordion">בעיות כמותיות</button>
+            <div class="panel">
+                <a href="quiz_math1.html" class="btn">מבחן 1</a>
+                <a href="quiz_math2.html" class="btn">מבחן 2</a>
+                <a href="quiz_math3.html" class="btn">מבחן 3</a>
+            </div>
 
-        <section>
-            <h2>למה להתכונן?</h2>
-            <p>
-                הכנה למבחני דפ"ר יכולה לשפר משמעותית את הסיכויים שלך להשיג ציון גבוה יותר, מה שמשפיע ישירות על המיקום שלך בצה"ל. 
-                תרגול מוביל לשלמות, ואנחנו כאן כדי לעזור לך להצליח!
-            </p>
+            <button class="accordion">הבנת הנקרא</button>
+            <div class="panel">
+                <a href="quiz_reading1.html" class="btn">מבחן 1</a>
+                <a href="quiz_reading2.html" class="btn">מבחן 2</a>
+                <a href="quiz_reading3.html" class="btn">מבחן 3</a>
+            </div>
         </section>
-
-        <section>
-            <h2>בחרו מבחן לתרגול</h2>
-            <p>בחרו מהמבחנים הבאים:</p>
-            <ul>
-                <li><a href="quiz1.html">מבחן 1 - שאלות הגיון</a></li>
-                <li><a href="quiz2.html">מבחן 2 - מבחן חשיבה מתמטית</a></li>
-                <li><a href="quiz3.html">מבחן 3 - שאלות הבנת הנקרא</a></li>
-                <li><a href="quiz4.html">מבחן 4 - מבחן מהירות פתרון</a></li>
-                <li><a href="quiz5.html">מבחן 5 - שאלות שונות</a></li>
-            </ul>
-        </section>
-
-        <div class="start-quiz">
-            <a href="quiz1.html" class="btn">התחל לתרגל עכשיו</a>
-        </div>
     </main>
+
+    <script>
+        // קוד JavaScript להפעלת האקורדיון
+        const accordions = document.querySelectorAll(".accordion");
+
+        accordions.forEach(acc => {
+            acc.addEventListener("click", function () {
+                // סגור את כל הלשוניות האחרות
+                accordions.forEach(item => {
+                    if (item !== this) {
+                        item.classList.remove("active");
+                        item.nextElementSibling.style.display = "none";
+                    }
+                });
+
+                // פתח/סגור את הלשונית הנוכחית
+                this.classList.toggle("active");
+                const panel = this.nextElementSibling;
+                if (panel.style.display === "block") {
+                    panel.style.display = "none";
+                } else {
+                    panel.style.display = "block";
+                }
+            });
+        });
+    </script>
 </body>
 </html>
