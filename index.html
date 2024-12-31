@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>הכנה למבחני דפ"ר</title>
-    <link rel="stylesheet" href="style.css"> <!-- חיבור לקובץ CSS -->
+    <link rel="stylesheet" href="style.css"> 
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -86,6 +86,15 @@
         .btn:active {
             transform: scale(1);
         }
+
+        .simulation-btn {
+            display: block;
+            text-align: center;
+            margin: 20px auto;
+            width: 60%;
+            font-size: 20px;
+            font-weight: bold;
+        }
     </style>
 </head>
 <body>
@@ -116,16 +125,20 @@
                 <a href="quiz_reading2.html" class="btn">מבחן 2</a>
                 <a href="quiz_reading3.html" class="btn">מבחן 3</a>
             </div>
+
+            <div>
+                <a href="simulation.html" class="btn simulation-btn">התחלת סימולציית מבחנים</a>
+            </div>
         </section>
     </main>
 
     <script>
-        // קוד JavaScript להפעלת האקורדיון
+     
         const accordions = document.querySelectorAll(".accordion");
 
         accordions.forEach(acc => {
             acc.addEventListener("click", function () {
-                // סגור את כל הלשוניות האחרות
+              
                 accordions.forEach(item => {
                     if (item !== this) {
                         item.classList.remove("active");
@@ -133,7 +146,7 @@
                     }
                 });
 
-                // פתח/סגור את הלשונית הנוכחית
+               
                 this.classList.toggle("active");
                 const panel = this.nextElementSibling;
                 if (panel.style.display === "block") {
